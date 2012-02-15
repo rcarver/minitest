@@ -252,6 +252,31 @@ class MiniTest::Spec < MiniTest::Unit::TestCase
     alias :name :to_s
   end
   # :startdoc:
+
+  ##
+  # Set the current assertion message. This message will be used to describe
+  # failed assertions that do not have a specific message set. The message
+  # will be prefixed with 'it '.
+
+  def it msg
+    raise "A block must not be passed to the example-level +it+" if block_given?
+    @__current_msg = "it #{msg}"
+  end
+
+  ##
+  # Set the current assertion message. This message will be used to describe
+  # failed assertions that do not have a specific message set. The message
+  # will be used verbatim.
+
+  def specify msg
+    raise "A block must not be passed to the example-level +specify+" if block_given?
+    @__current_msg = msg
+  end
+
+  # :nodoc:
+  def message msg = nil, ending = ".", &default
+    super(msg || @__current_msg, ending, &default)
+  end
 end
 
 ##

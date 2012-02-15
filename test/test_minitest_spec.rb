@@ -510,6 +510,29 @@ describe MiniTest::Spec do
     end
   end
 
+  it "will use the contextual assertion message set via 'it' or 'specify'" do
+    @assertion_count = 4
+
+    it "uses this message"
+    assert_triggered "it uses this message.\nExpected: 2\n  Actual: 1" do
+      1.must_equal 2
+    end
+
+    specify "this message is used"
+    assert_triggered "this message is used.\nExpected: 2\n  Actual: 1" do
+      1.must_equal 2
+    end
+
+    # assertion message is used
+    assert_triggered "one equals two.\nExpected: 2\n  Actual: 1" do
+      1.must_equal 2, "one equals two"
+    end
+
+    # contextual message is maintained across assertions
+    assert_triggered "this message is used.\nExpected: 2\n  Actual: 1" do
+      1.must_equal 2
+    end
+  end
 end
 
 describe MiniTest::Spec, :let do

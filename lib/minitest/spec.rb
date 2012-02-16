@@ -259,7 +259,7 @@ class MiniTest::Spec < MiniTest::Unit::TestCase
   # will be prefixed with 'it '.
 
   def it msg
-    raise "A block must not be passed to the example-level +it+" if block_given?
+    raise ArgumentError, "A block must NOT be passed to the example-level `it`" if block_given?
     @__current_msg = "it #{msg}"
   end
 
@@ -269,7 +269,7 @@ class MiniTest::Spec < MiniTest::Unit::TestCase
   # will be used verbatim.
 
   def specify msg
-    raise "A block must not be passed to the example-level +specify+" if block_given?
+    raise ArgumentError, "A block must NOT be passed to the example-level `specify`" if block_given?
     @__current_msg = msg
   end
 

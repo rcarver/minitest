@@ -533,6 +533,18 @@ describe MiniTest::Spec do
       1.must_equal 2
     end
   end
+
+  it "enforces that you do not use a block form for assertion messages set via 'it' or 'specify'" do
+    @assertion_count = 2
+
+    assert_raises(ArgumentError) do
+      it "uses this" do end
+    end
+
+    assert_raises(ArgumentError) do
+      specify "this is used" do end
+    end
+  end
 end
 
 describe MiniTest::Spec, :let do
